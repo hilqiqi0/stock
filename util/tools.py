@@ -38,8 +38,11 @@ class StockBase(object):
         self.pro = get_tushare_pro()
         self.engine = get_tushare_mysql_engine(db_name)
 
-        self.start_date = '20240101'
-        self.end_date = '20240228'
+    def init_date(self):
+        start_date = '20240101'
+        end_date = '20240410'
+
+        return start_date, end_date
 
     def print_test(self):
         print(self.db_name)

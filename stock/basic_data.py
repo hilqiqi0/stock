@@ -245,7 +245,9 @@ class StockData(StockBase):
         """
         print("备用列表: bak_basic")
 
-        df = self.pro.trade_cal(exchange='', start_date='20240101', end_date='20240228')
+        # df = self.pro.trade_cal(exchange='', start_date='20240101', end_date='20240228')
+        start_date, end_date = self.init_date()
+        df = self.pro.trade_cal(exchange='', start_date=start_date, end_date=end_date)
         cal_date_list = df[df["is_open"] == 1]["cal_date"].values
 
         all_df = pd.DataFrame()
@@ -266,7 +268,7 @@ if __name__ == '__main__':
 
     stock_data = StockData(db_name="tushare_stock")
 
-    # stock_data.get_stock_basic()
-    # stock_data.get_stock_company()
-    # stock_data.get_stk_managers()
+    stock_data.get_stock_basic()
+    stock_data.get_stock_company()
+    stock_data.get_stk_managers()
     stock_data.get_bak_basic()
