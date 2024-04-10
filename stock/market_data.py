@@ -42,7 +42,9 @@ class MarketData(StockBase):
         """
         print("A股日线行情: daily")
 
-        df = self.pro.trade_cal(exchange='', start_date='20240305', end_date='20240305')
+        # df = self.pro.trade_cal(exchange='', start_date='20240305', end_date='20240305')
+        start_date, end_date = self.init_date()
+        df = self.pro.trade_cal(exchange='', start_date=start_date, end_date=end_date)
         cal_date_list = df[df["is_open"] == 1]["cal_date"].values
 
         all_df = self.pro.daily(trade_date=cal_date_list[0])
@@ -89,7 +91,9 @@ class MarketData(StockBase):
         """
         print("每日指标: daily_basic")
 
-        df = self.pro.trade_cal(exchange='', start_date='20240305', end_date='20240305')
+        # df = self.pro.trade_cal(exchange='', start_date='20240305', end_date='20240305')
+        start_date, end_date = self.init_date()
+        df = self.pro.trade_cal(exchange='', start_date=start_date, end_date=end_date)
         cal_date_list = df[df["is_open"] == 1]["cal_date"].values
 
         column_names ="ts_code,trade_date,close,turnover_rate,turnover_rate_f,volume_ratio,pe,pe_ttm,pb,ps,ps_ttm,dv_ratio,dv_ttm,total_share,float_share,free_share,total_mv,circ_mv,limit_status"
@@ -142,7 +146,9 @@ class MarketData(StockBase):
         """
         print("个股资金流向: moneyflow")
 
-        df = self.pro.trade_cal(exchange='', start_date='20240101', end_date='20240226')
+        # df = self.pro.trade_cal(exchange='', start_date='20240101', end_date='20240226')
+        start_date, end_date = self.init_date()
+        df = self.pro.trade_cal(exchange='', start_date=start_date, end_date=end_date)
         cal_date_list = df[df["is_open"] == 1]["cal_date"].values
 
         column_names = 'ts_code,trade_date,buy_sm_vol,buy_sm_amount,sell_sm_vol,sell_sm_amount,buy_md_vol,buy_md_amount,sell_md_vol,sell_md_amount,buy_lg_vol,buy_lg_amount,sell_lg_vol,sell_lg_amount,buy_elg_vol,buy_elg_amount,sell_elg_vol,sell_elg_amount,net_mf_vol,net_mf_amount,trade_count'
@@ -179,7 +185,9 @@ class MarketData(StockBase):
         """
         print("沪深港通资金流向: moneyflow_hsgt")
 
-        df = self.pro.moneyflow_hsgt(start_date='20240101', end_date='20240226')
+        # df = self.pro.moneyflow_hsgt(start_date='20240101', end_date='20240226')
+        start_date, end_date = self.init_date()
+        df = self.pro.moneyflow_hsgt(start_date=start_date, end_date=end_date)
 
         table_name = "moneyflow_hsgt"
         res = self.mysql_write_data(df,
@@ -209,7 +217,9 @@ class MarketData(StockBase):
         """
         print("沪深股通十大成交股: hsgt_top10")
 
-        df = self.pro.trade_cal(exchange='', start_date='20240101', end_date='20240226')
+        # df = self.pro.trade_cal(exchange='', start_date='20240101', end_date='20240226')
+        start_date, end_date = self.init_date()
+        df = self.pro.trade_cal(exchange='', start_date=start_date, end_date=end_date)
         cal_date_list = df[df["is_open"] == 1]["cal_date"].values
 
         all_df = self.pro.hsgt_top10(trade_date=cal_date_list[0])
@@ -269,7 +279,9 @@ class MarketData(StockBase):
         """
         print("备用行情: bak_daily")
 
-        df = self.pro.trade_cal(exchange='', start_date='20240101', end_date='20240226')
+        # df = self.pro.trade_cal(exchange='', start_date='20240101', end_date='20240226')
+        start_date, end_date = self.init_date()
+        df = self.pro.trade_cal(exchange='', start_date=start_date, end_date=end_date)
         cal_date_list = df[df["is_open"] == 1]["cal_date"].values
 
         all_df = self.pro.bak_daily(trade_date=cal_date_list[0])
@@ -293,9 +305,10 @@ if __name__ == '__main__':
     print("market data...")
 
     market_data = MarketData(db_name="tushare_market")
-    # market_data.get_daily()
+    market_data.get_daily()
     market_data.get_daily_basic()
-    # market_data.get_moneyflow()
-    # market_data.get_moneyflow_hsgt()
-    # market_data.get_hsgt_top10()
-    # market_data.get_bak_daily()
+    market_data.get_moneyflow()
+    market_data.get_moneyflow_hsgt()
+    market_data.get_hsgt_top10()
+    market_data.get_bak_daily()
+    
