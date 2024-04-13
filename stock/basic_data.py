@@ -3,7 +3,7 @@ Author: spc
 Email: hilqiqi0@foxmail.com
 Date: 2024-02-24 11:26:52
 LastEditors: spc
-LastEditTime: 2024-04-13 09:31:00
+LastEditTime: 2024-04-13 14:56:24
 FilePath: /stock/stock/basic_data.py
 Description: 
 
@@ -71,7 +71,7 @@ class StockData(StockBase):
         print("交易日历：trade_cal")
 
         start_date, end_date = self.init_date()
-        # df = self.pro.query('trade_cal', start_date='20180101', end_date='20181231')
+        # df = self.pro.trade_cal(exchange='', start_date='20180101', end_date='20250101')
         df = self.pro.trade_cal(exchange='', start_date=start_date, end_date=end_date)
 
         table_name = "trade_cal"
@@ -281,7 +281,7 @@ if __name__ == '__main__':
     stock_data = StockData(db_name="tushare_stock")
 
     stock_data.get_stock_basic()
-    stock_data.get_trade_cal()
+    # stock_data.get_trade_cal()
     stock_data.get_stock_company()
     stock_data.get_stk_managers()
     stock_data.get_bak_basic()
